@@ -1,0 +1,6 @@
+*
+!.traefik.yml
+!go.mod
+!*.go
+*_test.go
+!LICENSE
