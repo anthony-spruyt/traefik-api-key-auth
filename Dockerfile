@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.title="traefik-api-key-auth" \
       org.opencontainers.image.source="https://github.com/anthony-spruyt/traefik-api-key-auth" \
       org.opencontainers.image.licenses="ISC"
 
-COPY . /
+COPY .traefik.yml go.mod plugin.go LICENSE /
 
 USER 65534:65534
 
