@@ -36,7 +36,6 @@
         ".gitleaks.toml",
         ".golangci.yml",
         ".jsonlintrc",
-        ".lint-config.sh",
         ".lycheeignore",
         ".markdownlint.json",
         ".markdownlintignore",
