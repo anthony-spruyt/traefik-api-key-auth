@@ -26,7 +26,7 @@ docker cp "$container:/" - | tar -x -C "$work/image"
 
 for f in .traefik.yml go.mod plugin.go LICENSE; do
   if [[ ! -f "$work/image/$f" ]]; then
-    echo "::error::$f is missing from $IMAGE_REF"
+    echo "::error::$f is missing from $IMAGE_REF" >&2
     exit 1
   fi
 done
