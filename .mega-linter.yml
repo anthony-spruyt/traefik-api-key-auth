@@ -1,7 +1,14 @@
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/oxsecurity/megalinter/main/megalinter/descriptors/schemas/megalinter-configuration.jsonschema.json
 # Project-specific MegaLinter configuration
 # Extends the base config from repo-operator
 # Add custom linters or overrides below
+EXTENDS:
+  - .mega-linter-base.yml
+# Append additional linters to base config (don't replace)
+CONFIG_PROPERTIES_TO_APPEND:
+  - ENABLE_LINTERS
+  - ADDITIONAL_EXCLUDED_DIRECTORIES
 # Add project-specific linters below:
 # ENABLE_LINTERS:
 #   - TYPESCRIPT_ES
@@ -9,11 +16,3 @@
 # Exclude more directories without dropping the base ones:
 # ADDITIONAL_EXCLUDED_DIRECTORIES:
 #   - generated
-
-EXTENDS:
-  - ".mega-linter-base.yml"
-CONFIG_PROPERTIES_TO_APPEND:
-  - "ENABLE_LINTERS"
-  - "ADDITIONAL_EXCLUDED_DIRECTORIES"
-ENABLE_LINTERS:
-  - "GO_GOLANGCI_LINT"
