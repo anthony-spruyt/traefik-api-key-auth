@@ -30,12 +30,12 @@ This is a fork of [linkphoenix/traefik-api-key-auth](https://github.com/linkphoe
 | `pathSegment`               | `false`           | bool     | Accept the key as an exact path segment.                                                                            |
 | `permissiveMode`            | `false`           | bool     | Let requests through even without a valid key, and log them (dry run).                                              |
 | `removeHeadersOnSuccess`    | `true`            | bool     | Strip the header that carried the key before forwarding.                                                            |
-| `keys`                      | `[]`              | []string | Valid keys. `env:VAR_NAME` reads a key from Traefik's environment. Required unless passthrough mode is on.           |
+| `keys`                      | `[]`              | []string | Valid keys. `env:VAR_NAME` reads a key from Traefik's environment. Required unless passthrough mode is on.          |
 | `exemptPaths`               | `[]`              | []string | Path prefixes that skip authentication, such as `/health`.                                                          |
 | `internalForwardHeaderName` | `""`              | string   | If set, put the matched key in this header for the next middleware or backend.                                      |
-| `forwardBearerHeader`       | `false`           | bool     | Send the key on as `Bearer <key>` in `forwardBearerHeaderName`. With no `keys`, this turns on passthrough mode.      |
+| `forwardBearerHeader`       | `false`           | bool     | Send the key on as `Bearer <key>` in `forwardBearerHeaderName`. With no `keys`, this turns on passthrough mode.     |
 | `forwardBearerHeaderName`   | `"Authorization"` | string   | Header the forwarded bearer token is written to.                                                                    |
-| `internalErrorRoute`        | `""`              | string   | On a missing or invalid key, rewrite the path to this route and forward the request instead of returning `403`.      |
+| `internalErrorRoute`        | `""`              | string   | On a missing or invalid key, rewrite the path to this route and forward the request instead of returning `403`.     |
 
 At least one of `authenticationHeader`, `bearerHeader`, `queryParam` or `pathSegment` must be `true`. Credentials are checked in that order, and the first valid key wins.
 
@@ -109,6 +109,12 @@ go vet ./...
 go test -race ./...
 go run github.com/traefik/yaegi/cmd/yaegi@v0.16.1 test -v .
 podman build -t traefik-api-key-auth:dev .
+IMAGE_REF=traefik-api-key-auth:dev ./scripts/test-image.sh
+./lint.sh
 ```
 
-Keep the Yaegi version in step with the one in the `go.mod` of the Traefik release you run.
+`scripts/test-image.sh` runs the tests in Yaegi against the sources inside the built image, which is what CI does before it pushes. Keep its `YAEGI_VERSION` in step with the one in the `go.mod` of the Traefik release you run.
+
+## Releases
+
+release-please versions the image from conventional commits. Merging its release PR tags `vX.Y.Z`, and CI then pushes `ghcr.io/anthony-spruyt/traefik-api-key-auth:X.Y.Z` (plus `X.Y` and `latest`) with an SBOM and a provenance attestation.

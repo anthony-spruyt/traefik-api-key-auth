@@ -32,8 +32,6 @@ func mustNew(t *testing.T, next http.Handler, config *Config) http.Handler {
 	return h
 }
 
-// --- Passthrough mode tests ---
-
 func TestPassthroughMode_Creation(t *testing.T) {
 	config := &Config{
 		AuthenticationHeader:     true,
@@ -215,8 +213,6 @@ func TestPassthroughMode_DefaultBearerHeaderName(t *testing.T) {
 	}
 }
 
-// --- Simulates how Traefik creates plugin config from CRD ---
-
 func TestPassthroughMode_TraefikConfigMerge(t *testing.T) {
 	// Traefik calls CreateConfig() then JSON-merges CRD values on top.
 	base := CreateConfig()
@@ -238,7 +234,6 @@ func TestPassthroughMode_TraefikConfigMerge(t *testing.T) {
 		t.Fatal("ForwardBearerHeader should be true after merge")
 	}
 
-	// Keys should remain as initialized by CreateConfig (empty slice)
 	if base.Keys == nil {
 		t.Log("Keys is nil after merge")
 	} else {
@@ -250,7 +245,6 @@ func TestPassthroughMode_TraefikConfigMerge(t *testing.T) {
 		t.Fatalf("passthroughMode should be true; ForwardBearerHeader=%v, len(Keys)=%d", base.ForwardBearerHeader, len(base.Keys))
 	}
 
-	// Full New() should succeed
 	backend, getHeaders := captureHandler()
 	h, err := New(context.Background(), backend, base, "test-traefik-merge")
 	if err != nil {
@@ -267,8 +261,6 @@ func TestPassthroughMode_TraefikConfigMerge(t *testing.T) {
 		t.Errorf("expected Authorization: Bearer tok2, got: %q", auth)
 	}
 }
-
-// --- Normal mode tests (existing behavior preserved) ---
 
 func TestNormalMode_ValidKey(t *testing.T) {
 	os.Setenv("TEST_API_KEY", "testkey")
@@ -349,11 +341,11 @@ func TestNormalMode_BearerAuth(t *testing.T) {
 	defer os.Unsetenv("TEST_API_KEY")
 
 	config := &Config{
-		AuthenticationHeader:     false,
-		BearerHeader:             true,
-		BearerHeaderName:         "Authorization",
-		Keys:                     []string{"env:TEST_API_KEY"},
-		RemoveHeadersOnSuccess:   true,
+		AuthenticationHeader:   false,
+		BearerHeader:           true,
+		BearerHeaderName:       "Authorization",
+		Keys:                   []string{"env:TEST_API_KEY"},
+		RemoveHeadersOnSuccess: true,
 	}
 	h := mustNew(t, dummyHandler(200), config)
 
