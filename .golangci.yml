@@ -1,0 +1,35 @@
+version: "2"
+linters:
+  default: none
+  enable:
+    - depguard
+    - errcheck
+    - gocritic
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+  settings:
+    depguard:
+      rules:
+        yaegi:
+          deny:
+            - pkg: "unsafe"
+              desc: "Traefik's Yaegi interpreter does not allow unsafe"
+            - pkg: "syscall"
+              desc: "Traefik's Yaegi interpreter does not allow syscall"
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/anthony-spruyt/traefik-api-key-auth
