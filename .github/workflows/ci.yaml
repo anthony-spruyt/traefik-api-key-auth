@@ -23,10 +23,18 @@ jobs:
     with:
       language: "go"
       test-command: "./scripts/test-image.sh"
+  repo:
+    needs:
+      - "lint"
+    permissions:
+      contents: "read"
+    uses: "./.github/workflows/ci-repo.yaml"
+    secrets: "inherit"
   summary:
     needs:
       - "lint"
       - "image"
+      - "repo"
     if: "always()"
     permissions:
       actions: "read"
