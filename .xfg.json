@@ -43,6 +43,7 @@
         ".gitignore",
         ".gitleaks.toml",
         ".golangci.yml",
+        ".hadolint.yaml",
         ".jsonlintrc",
         ".lycheeignore",
         ".markdownlint.json",
