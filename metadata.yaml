@@ -1,0 +1,5 @@
+---
+# test-image.sh fetches yaegi with go run
+egress:
+  - proxy.golang.org:443
+  - sum.golang.org:443
