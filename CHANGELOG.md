@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/anthony-spruyt/traefik-api-key-auth/compare/v1.0.0...v1.0.1) (2026-10-15)
+
+
+### Documentation
+
+* **readme:** note the CI network limits ([#25](https://github.com/anthony-spruyt/traefik-api-key-auth/issues/25)) ([644134c](https://github.com/anthony-spruyt/traefik-api-key-auth/commit/644134c6bd1e41c3c2586a7a3e1cd6d475ae4da6))
+
 ## 1.0.0 (2026-10-06)
 
 
