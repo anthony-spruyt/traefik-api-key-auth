@@ -119,4 +119,4 @@ IMAGE_REF=traefik-api-key-auth:dev ./scripts/test-image.sh
 
 release-please versions the image from conventional commits. Merging its release PR tags `vX.Y.Z`, and CI then pushes `ghcr.io/anthony-spruyt/traefik-api-key-auth:X.Y.Z` (plus `X.Y` and `latest`) with an SBOM and a provenance attestation.
 
-CI builds and publishes the image with outbound network limited to GitHub, the container registries and the hosts listed under `egress` in `metadata.yaml`.
+CI builds and publishes the image with outbound network limited to GitHub, Sigstore, the container registries and the hosts listed under `egress` in `metadata.yaml`.
