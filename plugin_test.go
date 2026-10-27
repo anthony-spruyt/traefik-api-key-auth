@@ -207,9 +207,17 @@ func TestPassthroughMode_DefaultBearerHeaderName(t *testing.T) {
 		ForwardBearerHeader:      true,
 		ForwardBearerHeaderName:  "",
 	}
-	_, err := New(context.Background(), dummyHandler(200), config, "test-default-name")
-	if err != nil {
-		t.Fatalf("should default forwardBearerHeaderName to Authorization: %v", err)
+	backend, getHeaders := captureHandler()
+	h := mustNew(t, backend, config)
+
+	req := httptest.NewRequest(http.MethodPost, "/mcp", nil)
+	req.Header.Set("X-API-KEY", "default-tok")
+	rw := httptest.NewRecorder()
+	h.ServeHTTP(rw, req)
+
+	headers := getHeaders()
+	if auth := headers.Get("Authorization"); auth != "Bearer default-tok" {
+		t.Errorf("expected Authorization: Bearer default-tok, got: %q", auth)
 	}
 }
 
