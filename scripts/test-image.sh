@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Keep in step with the yaegi version in the go.mod of the Traefik release in use
 # renovate: depName=github.com/traefik/yaegi datasource=go
-YAEGI_VERSION="v0.16.1"
+YAEGI_VERSION="v0.16.2"
 
 : "${IMAGE_REF:?IMAGE_REF must name the image to test}"
 
